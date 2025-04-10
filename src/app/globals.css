@@ -1,26 +1,60 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply text-gray-200;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg transition duration-300;
+  }
+  
+  .btn-primary {
+    @apply bg-green-500 hover:bg-green-600 text-white;
+  }
+  
+  .card {
+    @apply bg-gray-900/40 backdrop-blur-sm rounded-xl p-6;
+  }
+}
+
+/* เพิ่มในไฟล์ globals.css หรือไฟล์ CSS ที่ import เข้าในโปรเจค */
+
+/* Smoothing animation timing */
+.ease-out {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.duration-600 {
+  transition-duration: 600ms;
+}
+
+/* Animation for active card */
+@keyframes pulse-subtle {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.1);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+.active-card {
+  animation: pulse-subtle 2s infinite;
+}
+
+/* Card hover effect */
+.tech-card {
+  transition: all 0.3s ease;
+}
+
+.tech-card:hover {
+  transform: translateY(-2px);
 }
