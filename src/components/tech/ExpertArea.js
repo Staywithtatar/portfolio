@@ -1,4 +1,9 @@
+'use client';
+
+import { useLanguage } from '../context/LanguageContext';
+
 export default function ExpertArea() {
+  const { t } = useLanguage();
   const expertTools = [
     { name: "Figma", icon: (
       <svg width="24" height="36" viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,12 +47,17 @@ export default function ExpertArea() {
   ];
 
   return (
-    <div className="bg-gray-900/40 backdrop-blur-sm rounded-xl p-6 flex-1">
-      <h2 className="text-white text-xl font-semibold mb-4">My Expert Area</h2>
+    <div className="bg-gray-900/30 backdrop-blur-md p-6 flex-1 border border-white/10"
+      style={{ 
+        borderRadius: '40px 20px 50px 20px',
+        boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)'
+      }}>
+      <h2 className="text-white text-xl font-semibold mb-4">{t('expertArea')}</h2>
       <div className="grid grid-cols-3 gap-4">
         {expertTools.map((tool, index) => (
-          <div key={index} className="flex flex-col items-center">
-            <div className="bg-gray-800 rounded-xl p-3 mb-2 w-16 h-16 flex items-center justify-center">
+          <div key={index} className="flex flex-col items-center group">
+            <div className="bg-gray-800/60 mb-2 w-16 h-16 flex items-center justify-center border border-white/10 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              style={{ borderRadius: tool.borderRadius }}>
               {tool.icon}
             </div>
             <span className="text-white text-sm">{tool.name}</span>
