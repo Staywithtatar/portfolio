@@ -1,50 +1,59 @@
 'use client';
 
-import Link from 'next/link';
-import { MdHome } from 'react-icons/md';
-import { IoMdApps } from 'react-icons/io';
 import { useLanguage } from '../context/LanguageContext';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
-  const { language, toggleLanguage, t } = useLanguage();
+  const { t, language, toggleLanguage } = useLanguage();
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <nav 
-      className="bg-gray-900/30 backdrop-blur-md mb-6 p-4 flex justify-between items-center border border-white/10" 
+      className={`glass fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-full border border-white/10 hover-lift ${isVisible ? 'animate-fade-in-down' : 'opacity-0'}`}
       style={{ 
-        borderRadius: '20px 50px 20px 50px',
+        backdropFilter: 'blur(20px)',
         boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)'
       }}
+      suppressHydrationWarning={true}
     >
-      <div className="flex items-center gap-2">
-        <div className="bg-gray-800/70 p-1.5 rounded-tl-xl rounded-br-xl border border-white/10">
-          <IoMdApps className="text-white text-xl" />
+      <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-2">
+          <span className="text-white font-bold text-lg">{t('headone')}</span>
+          <span className="text-green-400 font-bold text-lg gradient-text">{t('headtwo')}</span>
         </div>
-        <h1 className="font-semibold text-xl">
-          <span className="text-white">{t('headone')}</span>
-          <span className="text-green-400 font-bold"> {t('headtwo')}</span>
-        </h1>
+        
+        <div className="flex items-center space-x-6">
+          <a 
+            href="/" 
+            className="text-white hover:text-green-400 transition-all duration-300 hover:scale-105"
+          >
+            {t('home')}
+          </a>
+          <a 
+            href="/projects" 
+            className="text-white hover:text-green-400 transition-all duration-300 hover:scale-105"
+          >
+            {t('projects')}
+          </a>
+          
+          <button
+            onClick={toggleLanguage}
+            className="bg-white/10 text-white px-3 py-1 rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 active:scale-95 animate-pulse"
+            suppressHydrationWarning={true}
+          >
+            {language === 'en' ? '🇹🇭' : '🇺🇸'}
+          </button>
+        </div>
       </div>
-      <div className="flex items-center gap-4">
-        <Link href="/" className="flex items-center gap-2 text-white bg-gray-800/40 hover:bg-gray-800/60 px-3 py-2 transition border border-white/5" 
-          style={{ borderRadius: '10px 20px 10px 20px' }}>
-          <MdHome />
-          {t('home')}
-        </Link>
-        <Link href="/projects" className="flex items-center gap-2 text-white bg-gray-800/40 hover:bg-gray-800/60 px-3 py-2 transition border border-white/5" 
-          style={{ borderRadius: '20px 10px 20px 10px' }}>
-          <IoMdApps />
-          {t('projects')}
-        </Link>
-        <button 
-          onClick={toggleLanguage}
-          className="bg-gray-800/40 hover:bg-gray-800/60 px-3 py-2 text-white transition border border-white/5 flex items-center" 
-          style={{ borderRadius: '50% 30% 50% 30%' }}
-          aria-label="Toggle language"
-        >
-          <span className="font-medium">{language === 'en' ? 'TH' : 'EN'}</span>
-        </button>
-      </div>
+      
+      {/* Navigation particles */}
+      <div className="absolute -top-1 -left-1 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+      <div className="absolute -bottom-1 -right-1 w-1 h-1 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
     </nav>
   );
 }

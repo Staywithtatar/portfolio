@@ -28,7 +28,9 @@ export default function VerticalCarousel({ children, interval = 3000, visibleIte
     return (
       <div className="flex flex-col gap-4">
         {childrenArray.map((item, i) => (
-          <div key={i} className="w-full">{item}</div>
+          <div key={i} className="w-full animate-fade-in-up" style={{ animationDelay: `${i * 0.1}s` }}>
+            {item}
+          </div>
         ))}
       </div>
     );
@@ -54,11 +56,12 @@ export default function VerticalCarousel({ children, interval = 3000, visibleIte
           return (
             <div
               key={index}
-              className="absolute w-full transition-all duration-500 ease-out"
+              className="absolute w-full transition-all duration-700 ease-out"
               style={{
-                transform: isVisible ? `translateY(${position * 110}%)` : 'translateY(-20%)',
-                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? `translateY(${position * 110}%) scale(${1 - position * 0.05})` : 'translateY(-20%) scale(0.9)',
+                opacity: isVisible ? 1 - position * 0.2 : 0,
                 zIndex: isVisible ? 10 - position : 0,
+                filter: isVisible ? `blur(${position * 0.5}px)` : 'blur(2px)',
               }}
             >
               {child}
@@ -67,27 +70,9 @@ export default function VerticalCarousel({ children, interval = 3000, visibleIte
         })}
       </div>
       
-      {/* Navigation arrows */}
-      <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex flex-col gap-2">
-        <button 
-          onClick={() => setActiveIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems)}
-          className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20"
-          aria-label="Previous item"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
-          </svg>
-        </button>
-        <button 
-          onClick={() => setActiveIndex((prevIndex) => (prevIndex + 1) % totalItems)}
-          className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20"
-          aria-label="Next item"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-      </div>
+      
+      
+     
     </div>
   );
 }

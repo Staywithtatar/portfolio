@@ -3,86 +3,112 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
+import { useEffect, useState } from 'react';
 
 export default function RecentProjects() {
   const { t } = useLanguage();
+  const [isVisible, setIsVisible] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 400);
+    return () => clearTimeout(timer);
+  }, []);
   
   const projects = [
+    
     {
       id: 1,
-      image: "/image/project/project5.png",
+      titleKey: "nongnuchSalesERP",
+      image: "/image/project/project9.png",
       type: "image",
-      tags: ["NextJS + MongoDB"],
-      titleKey: 'threadProject',
-      url: "https://kratoo-nextjs.vercel.app/",
-      borderRadius: "30px 10px 40px 10px"
+      tags: ["Vue3", "Api"],
+      url: "https://sales.nongnooch.app/login",
+      borderRadius: "20px 8px 20px 8px"
     },
     {
       id: 2,
-      image: "/image/project/project6.png",
+      titleKey: "threadProject",
+      image: "/image/project/project5.png",
       type: "image",
-      tags: ["AngularTS + API"],
-      titleKey: 'realEstateProject',
-      url: "https://rakabaan.com/home",
-      borderRadius: "10px 40px 10px 30px"
+      tags: ["NextJs", "MongoDB"],
+      url: "https://kratoo-nextjs.vercel.app/",
+      borderRadius: "20px 8px 20px 8px"
     },
     {
       id: 3,
-      image: "/image/project/test.mp4",
-      type: "video",
-      tags: ["IOT Arduino + Line Notify + Mysql"],
-      titleKey: 'iotProject',
-      url: "/projects/data-viz",
-      borderRadius: "40px 10px 30px 10px"
+      titleKey: "realEstateProject",
+      image: "/image/project/project6.png",
+      type: "image",
+      tags: ["AngularTS", "API"],
+      url: "https://rakabaan.com/home",
+      borderRadius: "8px 20px 8px 20px"
     },
     {
       id: 4,
-      image: "/image/project/project2.png",
-      type: "image",
-      tags: ["HTML + TawindCSS + PHP + Mysql + Dataset"],
-      titleKey: 'realestantetraningset',
+      titleKey: "iotProject",
+      image: "/image/project/test.mp4",
+      type: "video",
+      tags: ["IOT Arduino", "Line Notify", "MySQL"],
       url: "",
-      borderRadius: "10px 40px 10px 30px"
+      borderRadius: "20px 8px 20px 8px"
     },
     {
       id: 5,
+      titleKey: "realestantetraningset",
+      image: "/image/project/project2.png",
+      type: "image",
+      tags: ["HTML", "TailwindCSS", "PHP", "MySQL"],
+      url: "",
+      borderRadius: "8px 20px 8px 20px"
+    },
+    {
+      id: 6,
+      titleKey: "itsupport",
       image: "/image/project/project8.png",
       type: "image",
-      tags: ["ReactJs + PHP + Mysql"],
-      titleKey: 'itsupport',
+      tags: ["ReactJs", "PHP", "MySQL"],
       url: "",
-      borderRadius: "10px 40px 10px 30px"
+      borderRadius: "8px 20px 8px 20px"
     },
   ];
 
   return (
-    <div className="bg-gray-900/30 backdrop-blur-md p-6 h-full flex flex-col border border-white/10"
+    <div 
+      className={`glass p-6 h-full flex flex-col border border-white/10 hover-lift ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
       style={{ 
         borderRadius: '20px 60px 20px 30px',
         boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)'
-      }}>
+      }}
+      suppressHydrationWarning={true}
+    >
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-white text-xl font-semibold">{t('recentProjects')}</h2>
-        <Link href="/projects" className="text-green-400 hover:text-green-300 transition">
-          {t('allProjects')}
+        <h2 className="text-white text-xl font-semibold gradient-text">
+          {t('recentProjects')} <span className="text-green-400 animate-pulse">🎯</span>
+        </h2>
+        <Link href="/projects" className="text-green-400 hover:text-green-300 transition-all duration-300 hover:scale-105">
+          {t('allProjects')} →
         </Link>
       </div>
       
       <div className="h-[320px] overflow-y-auto pr-3 custom-scrollbar flex-grow">
         <div className="grid grid-cols-1 gap-3">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <Link href={project.url} key={project.id}>
-              <div className="bg-gray-800/40 overflow-hidden hover:bg-gray-800/60 transition cursor-pointer border border-white/10 hover:shadow-lg hover:-translate-y-0.5"
-                style={{ borderRadius: project.borderRadius }}>
+              <div 
+                className={`glass overflow-hidden hover:bg-gray-800/60 transition-all duration-300 cursor-pointer border border-white/10 hover-lift ${isVisible ? `animate-fade-in-up stagger-${index + 1}` : 'opacity-0'}`}
+                style={{ borderRadius: project.borderRadius }}
+              >
                 {project.image && project.type === "image" && (
-                  <div className="overflow-hidden" style={{ borderTopLeftRadius: project.borderRadius.split(' ')[0], borderTopRightRadius: project.borderRadius.split(' ')[1] }}>
+                  <div className="overflow-hidden relative" style={{ borderTopLeftRadius: project.borderRadius.split(' ')[0], borderTopRightRadius: project.borderRadius.split(' ')[1] }}>
                     <Image
                       src={project.image}
                       alt={t(project.titleKey)}
                       width={400}
                       height={200}
-                      className="w-full h-28 object-cover transform hover:scale-105 transition duration-500"
+                      className="w-full h-28 object-cover transition-transform duration-500 hover:scale-110"
                     />
+                    {/* Image overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                 )}
                 {project.image && project.type === "video" && (
@@ -96,18 +122,23 @@ export default function RecentProjects() {
                 )}
                 <div className="p-2">
                   {project.isNew ? (
-                    <div className="inline-block bg-green-500 text-white text-xs px-2 py-1 rounded-sm mb-1">
+                    <div className="inline-block bg-gradient-to-r from-green-500 to-green-600 text-white text-xs px-2 py-1 rounded-sm mb-1 animate-pulse">
                       NEW
                     </div>
                   ) : (
                     project.tags && project.tags.map((tag, i) => (
-                      <div key={i} className="inline-block bg-white/10 text-white text-xs px-2 py-1 mb-1 mr-1"
-                        style={{ borderRadius: "10px 5px 10px 5px" }}>
+                      <div 
+                        key={i} 
+                        className="inline-block bg-white/10 text-white text-xs px-2 py-1 mb-1 mr-1 hover:bg-white/20 transition-colors duration-200"
+                        style={{ borderRadius: "10px 5px 10px 5px" }}
+                      >
                         {tag}
                       </div>
                     ))
                   )}
-                  <h3 className="text-white text-sm">{t(project.titleKey)}</h3>
+                  <h3 className="text-white text-sm font-medium">
+                    {t(project.titleKey) || project.titleKey}
+                  </h3>
                 </div>
               </div>
             </Link>

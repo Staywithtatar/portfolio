@@ -24,7 +24,8 @@ const translations = {
     
     // Recent Projects
     recentProjects: "Recent Projects",
-    allProjects: "All Projects →",
+    allProjects: "All Projects ",
+    nongnuchSalesERP: "It is a system for collecting basic data of Nong Nooch Garden in the sales department and exporting the collected basic data into a quotation system that triggers alerts according to the generated quotations.",
     threadProject: "It is a system created from studying the Future Skills course on the topic of NextJs, and I have taken that project and developed it into a basic thread.",
     realEstateProject: "A website for advertising and finding real estate for sale This is a project where I fixed bugs according to the list that the tester tested and made a list for fixing in the front-end.",
     iotProject: "This project uses an IoT module to create a prototype of a smart trash bin. It features notification integration via LINE and stores data in a MySQL database.",
@@ -52,6 +53,7 @@ const translations = {
     // Recent Projects
     recentProjects: "โปรเจคต์ล่าสุด",
     allProjects: "โปรเจคต์ทั้งหมด →",
+    nongnuchSalesERP: "เป็นระบบสำหรับการเก็บข้อมูลพื้นฐานของสวนนงนุชย์ ในส่วนของ ฝ่ายขาย และ นำข้อมูลพื้นฐานที่เก็บมาออกเป็นแบบเสนอราคาระบบแจ้งเตื่อนงานตามใบเสนอราคาที่สร้าง",
     threadProject: "เป็นระบบที่ทำขึ้นมาจากการศึกษาคอร์สเรียนของ Future Skills ในหัวข้อ NextJs และผมได้นำโปรเจคนั้นมาต่อยอดทำเป็นกระทู้แบบเบสิค",
     realEstateProject: "เว็บไซต์สำหรับประกาศและค้นหาอสังหาริมทรัพย์เพื่อขาย เป็นโปรเจคที่ผมได้แก้ไขบัคตามลิสต์ที่เทสเตอร์เทสและทำลิสต์มาให้แก้ในส่วนฟอร์นเอ็น",
     iotProject: "โปรเจคต์นี้ใช้โมดูล IoT ในการสร้างต้นแบบถังขยะอัจฉริยะ มีการแจ้งเตือนผ่าน LINE และจัดเก็บข้อมูลในฐานข้อมูล MySQL",
@@ -63,40 +65,54 @@ const translations = {
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  // Always start with default language 'en' for server-side rendering
+  // Start with 'en' for consistent SSR
   const [language, setLanguage] = useState('en');
-  // Track if we're mounted on the client side
   const [mounted, setMounted] = useState(false);
 
-  // Effect to run only on client-side after initial render
+  // Only run on client-side after hydration
   useEffect(() => {
     setMounted(true);
-    // Now that we're on the client, we can safely access localStorage
-    const savedLanguage = localStorage.getItem('language');
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
+    
+    // Check localStorage only after component is mounted
+    try {
+      const savedLanguage = localStorage.getItem('language');
+      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'th')) {
+        setLanguage(savedLanguage);
+      }
+    } catch (error) {
+      // Ignore localStorage errors (e.g., in private browsing)
+      console.warn('localStorage not available:', error);
     }
   }, []);
 
-  // Only update localStorage after mounted (client-side only)
+  // Save to localStorage only after mounted
   useEffect(() => {
     if (mounted) {
-      localStorage.setItem('language', language);
+      try {
+        localStorage.setItem('language', language);
+      } catch (error) {
+        // Ignore localStorage errors
+        console.warn('Could not save to localStorage:', error);
+      }
     }
   }, [language, mounted]);
 
   // Toggle language function
   const toggleLanguage = () => {
-    setLanguage(language === 'en' ? 'th' : 'en');
+    setLanguage(prev => prev === 'en' ? 'th' : 'en');
   };
 
-  // Translation function
+  // Translation function with hydration safety
   const t = (key) => {
+    // During SSR and before hydration, always return English
+    if (!mounted) {
+      return translations.en[key] || key;
+    }
     return translations[language][key] || key;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+    <LanguageContext.Provider value={{ language, toggleLanguage, t, mounted }}>
       {children}
     </LanguageContext.Provider>
   );
