@@ -94,8 +94,11 @@ export const projectData = [
     description: "เว็บไซต์ประกาศและค้นหาอสังหาริมทรัพย์ พัฒนาด้วย Angular TypeScript และ REST API",
     images: [
       { src: "/image/project/project6.png", type: "image" },
-      { src: "/image/project/project8.png", type: "image" },
-      { src: "/image/project/project9.png", type: "image" }
+      { src: "/image/project/project6_10.png", type: "image" },
+      { src: "/image/project/project6_11.png", type: "image" },
+      { src: "/image/project/project6_12.png", type: "image" },
+      { src: "/image/project/project6_13.png", type: "image" },
+      { src: "/image/project/project6_14.png", type: "image" }
     ],
     technologies: [
       { name: "Angular 15", description: "Frontend Framework" },
