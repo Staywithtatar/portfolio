@@ -1,6 +1,7 @@
 'use client';
 
-import Image from 'next/image';
+import OptimizedImage from '../ui/OptimizedImage';
+import OptimizedVideo from '../ui/OptimizedVideo';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import { useEffect, useState } from 'react';
@@ -100,9 +101,11 @@ export default function RecentProjects() {
               >
                 {project.image && project.type === "image" && (
                   <div className="overflow-hidden relative" style={{ borderTopLeftRadius: project.borderRadius.split(' ')[0], borderTopRightRadius: project.borderRadius.split(' ')[1] }}>
-                    <Image
+                    <OptimizedImage
                       src={project.image}
                       alt={t(project.titleKey)}
+                      usage="project"
+                      index={index}
                       width={400}
                       height={200}
                       className="w-full h-28 object-cover transition-transform duration-500 hover:scale-110"
@@ -112,7 +115,7 @@ export default function RecentProjects() {
                   </div>
                 )}
                 {project.image && project.type === "video" && (
-                  <video 
+                  <OptimizedVideo 
                     src={project.image} 
                     className="w-full h-28 object-cover"
                     autoPlay={false}

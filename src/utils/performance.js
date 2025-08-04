@@ -179,3 +179,126 @@ export const cacheManager = {
     }
   }
 }; 
+
+// Performance monitoring utilities
+
+/**
+ * Track image load performance
+ * @param {string} src - image source
+ * @param {number} startTime - load start time
+ */
+export const trackImageLoad = (src, startTime) => {
+  const loadTime = performance.now() - startTime;
+  console.log(`Image loaded: ${src} in ${loadTime.toFixed(2)}ms`);
+  
+  // Send to analytics if needed
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'image_load', {
+      image_src: src,
+      load_time: loadTime,
+    });
+  }
+};
+
+/**
+ * Track video load performance
+ * @param {string} src - video source
+ * @param {number} startTime - load start time
+ */
+export const trackVideoLoad = (src, startTime) => {
+  const loadTime = performance.now() - startTime;
+  console.log(`Video loaded: ${src} in ${loadTime.toFixed(2)}ms`);
+  
+  // Send to analytics if needed
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'video_load', {
+      video_src: src,
+      load_time: loadTime,
+    });
+  }
+};
+
+/**
+ * Preload critical images
+ * @param {string[]} imageUrls - array of image URLs to preload
+ */
+export const preloadImages = (imageUrls) => {
+  imageUrls.forEach(url => {
+    const img = new Image();
+    img.src = url;
+  });
+};
+
+/**
+ * Preload critical videos
+ * @param {string[]} videoUrls - array of video URLs to preload
+ */
+export const preloadVideos = (videoUrls) => {
+  videoUrls.forEach(url => {
+    const video = document.createElement('video');
+    video.src = url;
+    video.preload = 'metadata';
+  });
+};
+
+/**
+ * Get image dimensions for optimization
+ * @param {string} src - image source
+ * @returns {Promise<{width: number, height: number}>}
+ */
+export const getImageDimensions = (src) => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({
+        width: img.naturalWidth,
+        height: img.naturalHeight,
+      });
+    };
+    img.src = src;
+  });
+};
+
+/**
+ * Check if image is cached
+ * @param {string} src - image source
+ * @returns {boolean}
+ */
+export const isImageCached = (src) => {
+  const img = new Image();
+  img.src = src;
+  return img.complete;
+};
+
+/**
+ * Measure Core Web Vitals
+ */
+export const measureCoreWebVitals = () => {
+  if (typeof window === 'undefined') return;
+
+  // LCP (Largest Contentful Paint)
+  new PerformanceObserver((list) => {
+    const entries = list.getEntries();
+    const lastEntry = entries[entries.length - 1];
+    console.log('LCP:', lastEntry.startTime);
+  }).observe({ entryTypes: ['largest-contentful-paint'] });
+
+  // FID (First Input Delay)
+  new PerformanceObserver((list) => {
+    const entries = list.getEntries();
+    entries.forEach((entry) => {
+      console.log('FID:', entry.processingStart - entry.startTime);
+    });
+  }).observe({ entryTypes: ['first-input'] });
+
+  // CLS (Cumulative Layout Shift)
+  new PerformanceObserver((list) => {
+    let cls = 0;
+    list.getEntries().forEach((entry) => {
+      if (!entry.hadRecentInput) {
+        cls += entry.value;
+      }
+    });
+    console.log('CLS:', cls);
+  }).observe({ entryTypes: ['layout-shift'] });
+}; 
