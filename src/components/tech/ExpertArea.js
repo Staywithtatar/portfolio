@@ -18,7 +18,7 @@ export default function ExpertArea() {
     { name: "Postman", icon: "📡", description: "API Testing" },
     { name: "Figma", icon: "🎨", description: "UI/UX Design" },
     { name: "Docker", icon: "🐳", description: "Containerization" },
-    { name: "AWS", icon: "☁️", description: "Cloud Services" }
+    { name: "Swagger", icon: "📋", description: "API Documentation" }
   ];
 
   return (

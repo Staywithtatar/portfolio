@@ -12,9 +12,20 @@ export const projectData = [
     borderRadius: "20px 8px 20px 8px",
     description: "ระบบจัดการข้อมูลการขายสำหรับสวนนงนุช ประกอบด้วยระบบเก็บข้อมูลลูกค้า การสร้างใบเสนอราคา และการติดตามสถานะการขาย",
     images: [
-      { src: "/image/project/project9.png", type: "image" },
-      { src: "/image/project/project1.png", type: "image" },
-      { src: "/image/project/project2.png", type: "image" }
+      { src: "/image/project/project9_22.png", type: "image" },
+      { src: "/image/project/project9_10.png", type: "image" },
+      { src: "/image/project/project9_11.png", type: "image" },
+      { src: "/image/project/project9_12.png", type: "image" },
+      { src: "/image/project/project9_13.png", type: "image" },
+      { src: "/image/project/project9_14.png", type: "image" },
+      { src: "/image/project/project9_15.png", type: "image" },
+      { src: "/image/project/project9_16.png", type: "image" },
+      { src: "/image/project/project9_17.png", type: "image" },
+      { src: "/image/project/project9_18.png", type: "image" },
+      { src: "/image/project/project9_19.png", type: "image" },
+      { src: "/image/project/project9_20.png", type: "image" },
+      { src: "/image/project/project9_21.png", type: "image" },
+      { src: "/image/project/project9.png", type: "image" }
     ],
     technologies: [
       { name: "Vue 3", description: "Frontend Framework" },
@@ -45,8 +56,14 @@ export const projectData = [
     description: "แพลตฟอร์มโซเชียลมีเดียสำหรับแชร์ความคิดเห็นและกระทู้ ใช้ Next.js 13 และ MongoDB",
     images: [
       { src: "/image/project/project5.png", type: "image" },
-      { src: "/image/project/project3.png", type: "image" },
-      { src: "/image/project/project4.png", type: "image" }
+      { src: "/image/project/project5_10.png", type: "image" },
+      { src: "/image/project/project5_11.png", type: "image" },
+      { src: "/image/project/project5_12.png", type: "image" },
+      { src: "/image/project/project5_13.png", type: "image" },
+      { src: "/image/project/project5_14.png", type: "image" },
+      { src: "/image/project/project5_15.png", type: "image" },
+      { src: "/image/project/project5_16.png", type: "image" },
+      { src: "/image/project/project5_17.png", type: "image" }
     ],
     technologies: [
       { name: "Next.js 13", description: "React Framework" },
