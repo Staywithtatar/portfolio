@@ -2,76 +2,35 @@
 
 import OptimizedImage from '../ui/OptimizedImage';
 import OptimizedVideo from '../ui/OptimizedVideo';
+import ProjectModal from '../ui/ProjectModal';
 import Link from 'next/link';
 import { useLanguage } from '../context/LanguageContext';
 import { useEffect, useState } from 'react';
+import { projectData } from '../../utils/projectData';
 
 export default function RecentProjects() {
   const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 400);
     return () => clearTimeout(timer);
   }, []);
   
-  const projects = [
-    
-    {
-      id: 1,
-      titleKey: "nongnuchSalesERP",
-      image: "/image/project/project9.png",
-      type: "image",
-      tags: ["Vue3", "Api"],
-      url: "https://sales.nongnooch.app/login",
-      borderRadius: "20px 8px 20px 8px"
-    },
-    {
-      id: 2,
-      titleKey: "threadProject",
-      image: "/image/project/project5.png",
-      type: "image",
-      tags: ["NextJs", "MongoDB"],
-      url: "https://kratoo-nextjs.vercel.app/",
-      borderRadius: "20px 8px 20px 8px"
-    },
-    {
-      id: 3,
-      titleKey: "realEstateProject",
-      image: "/image/project/project6.png",
-      type: "image",
-      tags: ["AngularTS", "API"],
-      url: "https://rakabaan.com/home",
-      borderRadius: "8px 20px 8px 20px"
-    },
-    {
-      id: 4,
-      titleKey: "iotProject",
-      image: "/image/project/test.mp4",
-      type: "video",
-      tags: ["IOT Arduino", "Line Notify", "MySQL"],
-      url: "",
-      borderRadius: "20px 8px 20px 8px"
-    },
-    {
-      id: 5,
-      titleKey: "realestantetraningset",
-      image: "/image/project/project2.png",
-      type: "image",
-      tags: ["HTML", "TailwindCSS", "PHP", "MySQL"],
-      url: "",
-      borderRadius: "8px 20px 8px 20px"
-    },
-    {
-      id: 6,
-      titleKey: "itsupport",
-      image: "/image/project/project8.png",
-      type: "image",
-      tags: ["ReactJs", "PHP", "MySQL"],
-      url: "",
-      borderRadius: "8px 20px 8px 20px"
-    },
-  ];
+  const projects = projectData;
+  
+  const handleProjectClick = (e, project) => {
+    e.preventDefault();
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+  
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedProject(null);
+  };
 
   return (
     <div 
@@ -94,11 +53,12 @@ export default function RecentProjects() {
       <div className="h-[320px] overflow-y-auto pr-3 custom-scrollbar flex-grow">
         <div className="grid grid-cols-1 gap-3">
           {projects.map((project, index) => (
-            <Link href={project.url} key={project.id}>
-              <div 
-                className={`glass overflow-hidden hover:bg-gray-800/60 transition-all duration-300 cursor-pointer border border-white/10 hover-lift ${isVisible ? `animate-fade-in-up stagger-${index + 1}` : 'opacity-0'}`}
-                style={{ borderRadius: project.borderRadius }}
-              >
+            <div 
+              key={project.id}
+              onClick={(e) => handleProjectClick(e, project)}
+              className={`glass overflow-hidden hover:bg-gray-800/60 transition-all duration-300 cursor-pointer border border-white/10 hover-lift ${isVisible ? `animate-fade-in-up stagger-${index + 1}` : 'opacity-0'}`}
+              style={{ borderRadius: project.borderRadius }}
+            >
                 {project.image && project.type === "image" && (
                   <div className="overflow-hidden relative" style={{ borderTopLeftRadius: project.borderRadius.split(' ')[0], borderTopRightRadius: project.borderRadius.split(' ')[1] }}>
                     <OptimizedImage
@@ -144,10 +104,16 @@ export default function RecentProjects() {
                   </h3>
                 </div>
               </div>
-            </Link>
           ))}
         </div>
       </div>
+      
+      {/* Project Modal */}
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   );
 }
