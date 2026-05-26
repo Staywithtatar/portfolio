@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: ['react-icons', 'lucide-react'],
   },
+
+  // Turbopack config (required for Next.js 16 when webpack config is present)
+  turbopack: {},
   
   // Image optimization
   images: {
