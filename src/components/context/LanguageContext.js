@@ -45,6 +45,18 @@ const translations = {
     // Project 5 — AI Loan Approval
     aiLoanApproval: "AI Loan Approval — Senior Project",
     aiLoanApprovalDescription: "Senior thesis project — a web application that calculates loan approval results from user profile data, using a Machine Learning training set as the decision criteria.",
+
+    // Project 6 — Thread (NextJS learning)
+    threadProject: "Thread — Social Discussion Platform",
+    threadProjectDescription: "A social media platform for sharing thoughts and threads, built from a Future Skills NextJS course and extended into a working basic-thread system with auth, posts, comments, and likes.",
+
+    // Project 7 — Real Estate (Angular bug-fix engagement)
+    realEstateProject: "Real Estate Listing Site",
+    realEstateProjectDescription: "Front-end engagement on a real-estate listing & search website built with Angular TypeScript and REST APIs — handled the bug list reported by QA, fixing front-end issues across filtering, detail views, and listing management.",
+
+    // Project 8 — IoT Smart Trash Bin
+    iotProject: "IoT Smart Trash Bin",
+    iotProjectDescription: "An IoT prototype: a smart trash bin that uses ultrasonic sensors to detect fill level and sends LINE notifications when full, with all events logged to a MySQL database and a small web dashboard for monitoring.",
   },
   th: {
     // Navbar
@@ -88,6 +100,18 @@ const translations = {
     // Project 5 — AI Loan Approval
     aiLoanApproval: "AI Loan Approval — Senior Project",
     aiLoanApprovalDescription: "Senior project — เว็บแอปพลิเคชันคำนวณผลการขอสินเชื่อจากข้อมูลส่วนตัวของผู้ใช้ โดยใช้ Machine Learning training set เป็นเกณฑ์การตัดสิน",
+
+    // Project 6 — Thread
+    threadProject: "Thread — แพลตฟอร์มกระทู้สังคม",
+    threadProjectDescription: "ระบบที่ทำขึ้นจากการศึกษาคอร์ส Future Skills หัวข้อ NextJs แล้วต่อยอดเป็นกระทู้แบบเบสิค มีระบบสมาชิก โพสต์กระทู้ คอมเมนต์ และไลค์",
+
+    // Project 7 — Real Estate
+    realEstateProject: "เว็บไซต์ประกาศอสังหาริมทรัพย์",
+    realEstateProjectDescription: "งาน Frontend แก้บั๊กบนเว็บไซต์ประกาศและค้นหาอสังหาริมทรัพย์ที่พัฒนาด้วย Angular TypeScript + REST API — แก้ลิสต์บั๊กที่ QA แจ้งครอบคลุมระบบกรอง รายละเอียดประกาศ และจัดการประกาศ",
+
+    // Project 8 — IoT Smart Trash Bin
+    iotProject: "IoT — ถังขยะอัจฉริยะ",
+    iotProjectDescription: "โปรเจกต์ต้นแบบ IoT — ถังขยะอัจฉริยะใช้เซนเซอร์ ultrasonic ตรวจจับระดับขยะ และส่งแจ้งเตือนผ่าน LINE เมื่อเต็ม จัดเก็บข้อมูลเหตุการณ์ใน MySQL พร้อม web dashboard ตรวจสอบ",
   },
 };
 
