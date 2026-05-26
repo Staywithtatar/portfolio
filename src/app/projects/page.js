@@ -33,10 +33,10 @@ export default function Projects() {
             <div>
               <div className="heading-eyebrow mb-2">Portfolio</div>
               <h1 className="text-3xl md:text-4xl font-bold text-slate-100 tracking-tight mb-2 leading-tight">
-                {t('projects')}
+                {t('caseStudies')}
               </h1>
               <p className="text-sm text-slate-400 max-w-md leading-relaxed">
-                A collection of selected works — from production systems to experimental builds.
+                {t('caseStudiesSubtitle')}
               </p>
             </div>
             <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-indigo-400/10 border border-indigo-400/15">
@@ -48,7 +48,7 @@ export default function Projects() {
                   {projectData.length}
                 </div>
                 <div className="text-[10px] text-slate-400 uppercase tracking-wider mt-1 font-medium">
-                  Projects
+                  Case Studies
                 </div>
               </div>
             </div>

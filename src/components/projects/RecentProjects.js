@@ -40,9 +40,9 @@ export default function RecentProjects() {
     >
       <div className="flex justify-between items-end mb-5">
         <div>
-          <div className="heading-eyebrow mb-1.5">Showcase</div>
+          <div className="heading-eyebrow mb-1.5">Selected Work</div>
           <h2 className="text-lg font-semibold text-slate-100 tracking-tight">
-            {t('recentProjects')}
+            {t('caseStudies')}
           </h2>
         </div>
         <Link

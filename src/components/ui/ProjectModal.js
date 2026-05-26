@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import OptimizedImage from './OptimizedImage';
 import OptimizedVideo from './OptimizedVideo';
 import { useLanguage } from '../context/LanguageContext';
-import { X, ChevronLeft, ChevronRight, Check, ExternalLink, Github } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Check, ExternalLink, Github, Briefcase } from 'lucide-react';
 
 export default function ProjectModal({ project, isOpen, onClose }) {
   const { t } = useLanguage();
@@ -57,10 +57,16 @@ export default function ProjectModal({ project, isOpen, onClose }) {
         <div className="sticky top-0 z-10 px-6 py-5 border-b border-white/[0.06] bg-[#0a0d16]/90 backdrop-blur-xl rounded-t-3xl">
           <div className="flex justify-between items-start gap-4">
             <div className="flex-1 min-w-0">
-              <div className="heading-eyebrow mb-2">Project</div>
-              <h2 className="text-xl md:text-2xl font-bold text-slate-100 mb-3 tracking-tight leading-tight">
+              <div className="heading-eyebrow mb-2">Case Study</div>
+              <h2 className="text-xl md:text-2xl font-bold text-slate-100 mb-2 tracking-tight leading-tight">
                 {t(project.titleKey)}
               </h2>
+              {project.role && (
+                <div className="flex items-center gap-1.5 mb-3 text-xs text-slate-400">
+                  <Briefcase size={12} />
+                  <span>{project.role}</span>
+                </div>
+              )}
               <div className="flex flex-wrap gap-1.5">
                 {project.tags?.map((tag, index) => (
                   <span
@@ -149,7 +155,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
           {/* Overview */}
           <section>
-            <div className="heading-eyebrow mb-2">Overview</div>
+            <div className="heading-eyebrow mb-2">About</div>
             <p className="text-sm text-slate-300 leading-relaxed">
               {t(project.titleKey + 'Description') || project.description}
             </p>
@@ -158,7 +164,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
           {/* Technologies */}
           {project.technologies && (
             <section>
-              <div className="heading-eyebrow mb-3">Technologies</div>
+              <div className="heading-eyebrow mb-3">Tech Stack</div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {project.technologies.map((tech, index) => (
                   <div
@@ -176,7 +182,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
           {/* Features */}
           {project.features && (
             <section>
-              <div className="heading-eyebrow mb-3">Features</div>
+              <div className="heading-eyebrow mb-3">What I built</div>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {project.features.map((feature, index) => (
                   <li

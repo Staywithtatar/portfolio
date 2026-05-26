@@ -2,7 +2,6 @@
 
 import { createContext, useContext, useState, useEffect } from 'react';
 
-// สร้าง translations object สำหรับเก็บคำแปลทั้งหมด
 const translations = {
   en: {
     // Navbar
@@ -10,116 +9,122 @@ const translations = {
     headtwo: "Folio",
     home: "Home",
     projects: "Projects",
-    
+
     // ProfileCard
     name: "Yodsaphark Champapaeng",
-    intro: "In my free time, I enjoy playing games and web development. I am excited to see how AI can improve the user experience and make apps smarter and more engaging.",
+    intro: "Full-stack developer based in Thailand. I enjoy building production web apps — from ERP systems and marketplaces to AI-integrated tools — and care about UX, performance, and shipping solid work.",
     copyEmail: "Copy Email",
-    
+
     // Tech Stack
     techStack: "Tech Stack",
-    
+
     // Expert Area
     expertArea: "My Expert Area",
-    
-    // Recent Projects
-    recentProjects: "Recent Projects",
-    allProjects: "All Projects ",
-    nongnuchSalesERP: "It is a system for collecting basic data of Nong Nooch Garden in the sales department and exporting the collected basic data into a quotation system that triggers alerts according to the generated quotations.",
-    nongnuchSalesERPDescription: "A comprehensive sales management system for Nong Nooch Garden featuring customer data management, quotation generation, and sales tracking with real-time dashboard.",
-    threadProject: "It is a system created from studying the Future Skills course on the topic of NextJs, and I have taken that project and developed it into a basic thread.",
-    threadProjectDescription: "A social media platform for sharing thoughts and discussions built with Next.js 13 and MongoDB, featuring user authentication and real-time interactions.",
-    realEstateProject: "A website for advertising and finding real estate for sale This is a project where I fixed bugs according to the list that the tester tested and made a list for fixing in the front-end.",
-    realEstateProjectDescription: "A real estate listing and search website developed with Angular TypeScript and REST API, featuring advanced filtering and property management.",
-    iotProject: "This project uses an IoT module to create a prototype of a smart trash bin. It features notification integration via LINE and stores data in a MySQL database.",
-    iotProjectDescription: "An IoT-based smart trash bin system that automatically detects waste levels and sends notifications via LINE, with data storage in MySQL database.",
-    realestantetraningset: "It is a final project that is a Web Application about calculating loan requests, with the criteria used for calculation being a training set.",
-    realestantetraningsetDescription: "A loan calculation system for real estate using Machine Learning training sets to analyze and approve loan applications automatically.",
-    itsupport: "It is a website for recording information on equipment sent for repair by the IT department.",
-    itsupportDescription: "An IT support management system for tracking equipment repairs and maintenance requests with comprehensive reporting and notification features."
+
+    // Case studies section
+    caseStudies: "Case Studies",
+    caseStudiesSubtitle: "Selected work — real production systems and academic projects.",
+    allProjects: "View all",
+
+    // Project 1 — Paljai
+    paljai: "Paljai — Pet E-commerce Platform",
+    paljaiDescription: "Frontend development for a marketplace platform connecting pet owners with sellers of pets and pet products. I built the Seller Dashboard, Product Management, and Order/Stock UI flows, integrated Supabase (Auth, Storage, API), owned UX/UI decisions, and resolved production issues hands-on.",
+
+    // Project 2 — Apower ERP
+    apowerErp: "Apower — ERP & Production Management",
+    apowerErpDescription: "A comprehensive ERP system for a manufacturing business covering Material Orders, Purchase Requests, Production Planning, Cutting, QC, Stock and Reports. The work involved integrating with an existing database, modelling real business logic, conducting requirement analysis and flow design, and handling migration plus VPS deployment.",
+
+    // Project 3 — Nong Nooch Sales ERP
+    nongnuchSales: "Nong Nooch — Sales ERP",
+    nongnuchSalesDescription: "Sales management system for Nong Nooch Tropical Garden featuring customer data, quotation generation, sales tracking, and a real-time dashboard with automated alerts driven by the generated quotations.",
+
+    // Project 4 — Repair Request
+    repairRequest: "IT Repair Request System",
+    repairRequestDescription: "An IT support ticketing system: users register/login and submit repair requests, admins manage status through a dashboard, and the client polls for realtime status updates.",
+
+    // Project 5 — AI Loan Approval
+    aiLoanApproval: "AI Loan Approval — Senior Project",
+    aiLoanApprovalDescription: "Senior thesis project — a web application that calculates loan approval results from user profile data, using a Machine Learning training set as the decision criteria.",
   },
   th: {
     // Navbar
     headone: "กีต้าร์",
     headtwo: "ฟอลิโอ",
     home: "หน้าหลัก",
-    projects: "โปรเจคต์",
-    
+    projects: "ผลงาน",
+
     // ProfileCard
     name: "ยศภาค จำปาแพง",
-    intro: "ในเวลาว่าง ผมชอบเล่นเกมและพัฒนาเว็บไซต์ ผมรู้สึกตื่นเต้นที่จะได้เห็นว่า AI สามารถปรับปรุงประสบการณ์ผู้ใช้และทำให้แอปสมาร์ทและน่าสนใจมากขึ้นได้อย่างไร",
+    intro: "Full-stack developer จากประเทศไทย ชอบสร้าง production web app ตั้งแต่ระบบ ERP, marketplace ไปจนถึงเครื่องมือที่ใช้ AI ให้ความสำคัญกับ UX, performance และส่งงานให้จบจริง",
     copyEmail: "คัดลอกอีเมล",
-    
+
     // Tech Stack
     techStack: "เทคโนโลยีที่ใช้",
-    
+
     // Expert Area
     expertArea: "ความเชี่ยวชาญของฉัน",
-    
-    // Recent Projects
-    recentProjects: "โปรเจคต์ล่าสุด",
-    allProjects: "โปรเจคต์ทั้งหมด",
-    nongnuchSalesERP: "เป็นระบบสำหรับการเก็บข้อมูลพื้นฐานของสวนนงนุชย์ ในส่วนของ ฝ่ายขาย และ นำข้อมูลพื้นฐานที่เก็บมาออกเป็นแบบเสนอราคาระบบแจ้งเตื่อนงานตามใบเสนอราคาที่สร้าง",
-    nongnuchSalesERPDescription: "ระบบจัดการการขายที่ครบถ้วนสำหรับสวนนงนุช ประกอบด้วยการจัดการข้อมูลลูกค้า การสร้างใบเสนอราคา และการติดตามการขายพร้อม Dashboard แบบ Real-time",
-    threadProject: "เป็นระบบที่ทำขึ้นมาจากการศึกษาคอร์สเรียนของ Future Skills ในหัวข้อ NextJs และผมได้นำโปรเจคนั้นมาต่อยอดทำเป็นกระทู้แบบเบสิค",
-    threadProjectDescription: "แพลตฟอร์มโซเชียลมีเดียสำหรับแชร์ความคิดเห็นและกระทู้ สร้างด้วย Next.js 13 และ MongoDB พร้อมระบบสมาชิกและการโต้ตอบแบบ Real-time",
-    realEstateProject: "เว็บไซต์สำหรับประกาศและค้นหาอสังหาริมทรัพย์เพื่อขาย เป็นโปรเจคที่ผมได้แก้ไขบัคตามลิสต์ที่เทสเตอร์เทสและทำลิสต์มาให้แก้ในส่วนฟอร์นเอ็น",
-    realEstateProjectDescription: "เว็บไซต์ประกาศและค้นหาอสังหาริมทรัพย์ พัฒนาด้วย Angular TypeScript และ REST API พร้อมระบบกรองขั้นสูงและการจัดการอสังหาริมทรัพย์",
-    iotProject: "โปรเจคต์นี้ใช้โมดูล IoT ในการสร้างต้นแบบถังขยะอัจฉริยะ มีการแจ้งเตือนผ่าน LINE และจัดเก็บข้อมูลในฐานข้อมูล MySQL",
-    iotProjectDescription: "ระบบถังขยะอัจฉริยะที่ใช้ IoT ตรวจจับระดับขยะอัตโนมัติและแจ้งเตือนผ่าน LINE พร้อมจัดเก็บข้อมูลในฐานข้อมูล MySQL",
-    realestantetraningset: "เป็นไฟนอลโปรเจคของผม ทำระบบเว็บแอปพลิเคชั่นเกี่ยวกับการคำนวณผลการขอสินเชื่อจากข้อมูลส่วนตัวของผู้ใช้โดยใช้ Trainningset เป็นเกณฑ์การตัดสิน",
-    realestantetraningsetDescription: "ระบบคำนวณสินเชื่ออสังหาริมทรัพย์ที่ใช้ Machine Learning Training Set ในการวิเคราะห์และอนุมัติคำขอสินเชื่ออัตโนมัติ",
-    itsupport: "เป็นเว็บไซต์สำหรับการลงข้อมูลอุปกรณ์ส่งซ่อมของแผนก IT",
-    itsupportDescription: "ระบบจัดการงานซ่อมบำรุงอุปกรณ์ IT สำหรับติดตามการซ่อมอุปกรณ์และคำขอบำรุงรักษาพร้อมรายงานและระบบแจ้งเตือนที่ครบถ้วน"
-  }
+
+    // Case studies section
+    caseStudies: "Case Studies",
+    caseStudiesSubtitle: "ผลงานที่คัดสรร — ระบบ production จริงและโปรเจกต์ทางวิชาการ",
+    allProjects: "ดูทั้งหมด",
+
+    // Project 1 — Paljai
+    paljai: "Paljai — แพลตฟอร์ม E-commerce สัตว์เลี้ยง",
+    paljaiDescription: "พัฒนา Frontend สำหรับระบบ marketplace สัตว์เลี้ยงและสินค้าเกี่ยวกับสัตว์เลี้ยง รับผิดชอบ Seller Dashboard, Product Management, Order/Stock UI เชื่อม Supabase Auth/Storage/API ดูแล UX/UI และแก้ปัญหาบน production ด้วยตัวเอง",
+
+    // Project 2 — Apower ERP
+    apowerErp: "Apower — ระบบ ERP สำหรับโรงงานผลิต",
+    apowerErpDescription: "ระบบ ERP ครบวงจรสำหรับโรงงาน/ธุรกิจผลิต ครอบคลุม Material Order, Purchase Request, Production Planning, Cutting, QC, Stock และ Report ทำงานร่วมกับ Database เดิมและ business logic จริง ตั้งแต่วิเคราะห์ requirement, flow ระบบ ไปจนถึง migration และ deploy ขึ้น VPS",
+
+    // Project 3 — Nong Nooch Sales ERP
+    nongnuchSales: "Nong Nooch — ระบบ ERP ฝ่ายขาย",
+    nongnuchSalesDescription: "ระบบจัดการการขายของสวนนงนุช ครอบคลุมข้อมูลลูกค้า สร้างใบเสนอราคา ติดตามสถานะการขาย พร้อม Dashboard แบบ real-time และระบบแจ้งเตือนงานตามใบเสนอราคาที่สร้าง",
+
+    // Project 4 — Repair Request
+    repairRequest: "ระบบแจ้งซ่อม IT",
+    repairRequestDescription: "ระบบแจ้งซ่อมสำหรับฝ่าย IT รองรับการ Register/Login ผู้ใช้ส่งคำขอซ่อม Admin จัดการสถานะผ่าน dashboard และฝั่ง client polling สถานะแบบ realtime",
+
+    // Project 5 — AI Loan Approval
+    aiLoanApproval: "AI Loan Approval — Senior Project",
+    aiLoanApprovalDescription: "Senior project — เว็บแอปพลิเคชันคำนวณผลการขอสินเชื่อจากข้อมูลส่วนตัวของผู้ใช้ โดยใช้ Machine Learning training set เป็นเกณฑ์การตัดสิน",
+  },
 };
 
 const LanguageContext = createContext();
 
 export function LanguageProvider({ children }) {
-  // Start with 'en' for consistent SSR
   const [language, setLanguage] = useState('en');
   const [mounted, setMounted] = useState(false);
 
-  // Only run on client-side after hydration
   useEffect(() => {
     setMounted(true);
-    
-    // Check localStorage only after component is mounted
     try {
       const savedLanguage = localStorage.getItem('language');
-      if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'th')) {
+      if (savedLanguage === 'en' || savedLanguage === 'th') {
         setLanguage(savedLanguage);
       }
     } catch (error) {
-      // Ignore localStorage errors (e.g., in private browsing)
       console.warn('localStorage not available:', error);
     }
   }, []);
 
-  // Save to localStorage only after mounted
   useEffect(() => {
     if (mounted) {
       try {
         localStorage.setItem('language', language);
       } catch (error) {
-        // Ignore localStorage errors
         console.warn('Could not save to localStorage:', error);
       }
     }
   }, [language, mounted]);
 
-  // Toggle language function
   const toggleLanguage = () => {
-    setLanguage(prev => prev === 'en' ? 'th' : 'en');
+    setLanguage((prev) => (prev === 'en' ? 'th' : 'en'));
   };
 
-  // Translation function with hydration safety
   const t = (key) => {
-    // During SSR and before hydration, always return English
-    if (!mounted) {
-      return translations.en[key] || key;
-    }
+    if (!mounted) return translations.en[key] || key;
     return translations[language][key] || key;
   };
 
@@ -130,7 +135,6 @@ export function LanguageProvider({ children }) {
   );
 }
 
-// Hook for using LanguageContext
 export function useLanguage() {
   const context = useContext(LanguageContext);
   if (context === undefined) {
