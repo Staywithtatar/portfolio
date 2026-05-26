@@ -4,8 +4,10 @@ import { useState } from 'react';
 import { Mail, Github, Facebook, Copy, Check } from 'lucide-react';
 import SectionHeader from '../ui/SectionHeader';
 import { profile } from '../../data/profile';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ContactSection() {
+  const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
 
   const copyEmail = async () => {
@@ -23,9 +25,9 @@ export default function ContactSection() {
       <div className="max-w-3xl mx-auto px-4 md:px-6 text-center">
         <SectionHeader
           align="center"
-          eyebrow="Contact"
-          title="Let's work together"
-          subtitle="Open to full-time roles and freelance engagements — ERP, dashboards, e-commerce, and business systems. Drop me a message."
+          eyebrowKey="contact.eyebrow"
+          titleKey="contact.title"
+          subtitleKey="contact.subtitle"
         />
 
         <div className="mt-10 surface rounded-2xl p-8 md:p-10">
@@ -39,18 +41,18 @@ export default function ContactSection() {
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <a href={`mailto:${profile.email}`} className="btn-primary">
               <Mail size={15} />
-              Send Email
+              {t('contact.sendEmail')}
             </a>
             <button onClick={copyEmail} className="btn-secondary">
               {copied ? (
                 <>
                   <Check size={15} className="text-emerald-600" />
-                  Copied
+                  {t('contact.copied')}
                 </>
               ) : (
                 <>
                   <Copy size={15} />
-                  Copy Email
+                  {t('contact.copyEmail')}
                 </>
               )}
             </button>
@@ -59,7 +61,7 @@ export default function ContactSection() {
           {(profile.social.github || profile.social.facebook) && (
             <div className="mt-8 pt-6 border-t border-zinc-200">
               <div className="text-xs uppercase tracking-wider font-medium text-zinc-500 mb-3">
-                Also on
+                {t('contact.alsoOn')}
               </div>
               <div className="flex items-center justify-center gap-2">
                 {profile.social.github && (

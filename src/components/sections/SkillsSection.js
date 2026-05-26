@@ -1,14 +1,19 @@
+'use client';
+
 import SectionHeader from '../ui/SectionHeader';
 import { skillCategories } from '../../data/skills';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function SkillsSection() {
+  const { t } = useLanguage();
+
   return (
     <section id="skills" className="py-20 md:py-28">
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         <SectionHeader
-          eyebrow="Skills"
-          title="Tools I use to ship"
-          subtitle="Grouped by area. I lead with Frontend but cross into backend, database, and deployment when the work needs it."
+          eyebrowKey="skills.eyebrow"
+          titleKey="skills.title"
+          subtitleKey="skills.subtitle"
         />
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -16,7 +21,7 @@ export default function SkillsSection() {
             const Icon = cat.icon;
             return (
               <div
-                key={cat.title}
+                key={cat.title.en}
                 className="surface rounded-2xl p-6 hover:border-zinc-300 transition-colors"
               >
                 <div className="flex items-center gap-3 mb-4">
@@ -24,7 +29,7 @@ export default function SkillsSection() {
                     <Icon size={17} strokeWidth={2} />
                   </div>
                   <h3 className="text-base font-semibold text-zinc-900 tracking-tight">
-                    {cat.title}
+                    {t(cat.title)}
                   </h3>
                 </div>
 

@@ -1,21 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Menu, X } from 'lucide-react';
-
-const navItems = [
-  { href: '/#about', label: 'About' },
-  { href: '/#projects', label: 'Projects' },
-  { href: '/#experience', label: 'Experience' },
-  { href: '/#skills', label: 'Skills' },
-  { href: '/#services', label: 'Services' },
-  { href: '/#contact', label: 'Contact' },
-];
+import { Menu, X, Globe } from 'lucide-react';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const { t, language, toggleLanguage } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -25,6 +16,15 @@ export default function Navbar() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  const navItems = [
+    { href: '/#about', key: 'nav.about' },
+    { href: '/#projects', key: 'nav.projects' },
+    { href: '/#experience', key: 'nav.experience' },
+    { href: '/#skills', key: 'nav.skills' },
+    { href: '/#services', key: 'nav.services' },
+    { href: '/#contact', key: 'nav.contact' },
+  ];
 
   return (
     <header
@@ -50,24 +50,46 @@ export default function Navbar() {
               href={item.href}
               className="px-3 py-2 rounded-lg text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 transition-colors"
             >
-              {item.label}
+              {t(item.key)}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden md:flex">
+        <div className="hidden md:flex items-center gap-2">
+          <button
+            onClick={toggleLanguage}
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold text-zinc-700 hover:text-zinc-900 hover:bg-zinc-100 transition-colors"
+            aria-label="Toggle language"
+            suppressHydrationWarning
+          >
+            <Globe size={13} strokeWidth={2.2} />
+            <span className="tracking-wider">{language === 'en' ? 'EN' : 'TH'}</span>
+          </button>
           <Link href="/#contact" className="btn-primary text-sm">
-            Get in touch
+            {t('nav.getInTouch')}
           </Link>
         </div>
 
-        <button
-          className="md:hidden p-2 rounded-lg text-zinc-700 hover:bg-zinc-100"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
+        <div className="md:hidden flex items-center gap-1">
+          <button
+            onClick={toggleLanguage}
+            className="p-2 rounded-lg text-zinc-700 hover:bg-zinc-100"
+            aria-label="Toggle language"
+            suppressHydrationWarning
+          >
+            <span className="inline-flex items-center gap-1 text-xs font-semibold">
+              <Globe size={13} />
+              {language === 'en' ? 'EN' : 'TH'}
+            </span>
+          </button>
+          <button
+            className="p-2 rounded-lg text-zinc-700 hover:bg-zinc-100"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (
@@ -80,7 +102,7 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="px-3 py-2 rounded-lg text-sm font-medium text-zinc-700 hover:bg-zinc-100"
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             ))}
             <Link
@@ -88,7 +110,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="btn-primary text-sm mt-2 justify-center"
             >
-              Get in touch
+              {t('nav.getInTouch')}
             </Link>
           </nav>
         </div>

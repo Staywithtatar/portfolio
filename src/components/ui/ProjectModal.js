@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import OptimizedImage from './OptimizedImage';
 import OptimizedVideo from './OptimizedVideo';
+import { useLanguage } from '../context/LanguageContext';
 import {
   X,
   ChevronLeft,
@@ -16,6 +17,7 @@ import {
 } from 'lucide-react';
 
 export default function ProjectModal({ project, isOpen, onClose }) {
+  const { t } = useLanguage();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -44,12 +46,16 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
   const next = () => {
     if (project.images?.length) {
-      setCurrentImageIndex((prev) => (prev === project.images.length - 1 ? 0 : prev + 1));
+      setCurrentImageIndex((p) =>
+        p === project.images.length - 1 ? 0 : p + 1,
+      );
     }
   };
   const prev = () => {
     if (project.images?.length) {
-      setCurrentImageIndex((prev) => (prev === 0 ? project.images.length - 1 : prev - 1));
+      setCurrentImageIndex((p) =>
+        p === 0 ? project.images.length - 1 : p - 1,
+      );
     }
   };
 
@@ -63,25 +69,24 @@ export default function ProjectModal({ project, isOpen, onClose }) {
       />
 
       <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto custom-scrollbar bg-white rounded-2xl shadow-2xl animate-fade-in">
-        {/* Header */}
         <div className="sticky top-0 z-10 px-6 py-5 border-b border-zinc-200 bg-white/95 backdrop-blur-xl rounded-t-2xl">
           <div className="flex justify-between items-start gap-4">
             <div className="flex-1 min-w-0">
-              <div className="eyebrow mb-2">Case Study</div>
+              <div className="eyebrow mb-2">{t('modal.caseStudy')}</div>
               <h2 className="text-xl md:text-2xl font-bold text-zinc-900 mb-3 tracking-tight leading-tight">
-                {project.title}
+                {t(project.title)}
               </h2>
               <div className="flex flex-wrap items-center gap-3 text-xs text-zinc-600 mb-3">
                 {project.role && (
                   <span className="inline-flex items-center gap-1.5">
                     <Briefcase size={12} className="text-zinc-400" />
-                    {project.role}
+                    {t(project.role)}
                   </span>
                 )}
                 {project.period && (
                   <span className="inline-flex items-center gap-1.5">
                     <Calendar size={12} className="text-zinc-400" />
-                    {project.period}
+                    {t(project.period)}
                   </span>
                 )}
               </div>
@@ -104,7 +109,6 @@ export default function ProjectModal({ project, isOpen, onClose }) {
         </div>
 
         <div className="p-6 space-y-7">
-          {/* Gallery */}
           <div className="relative rounded-xl overflow-hidden bg-zinc-100">
             <div className="relative aspect-video">
               {isLoading && (
@@ -124,7 +128,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
               ) : (
                 <OptimizedImage
                   src={currentImage.src || currentImage}
-                  alt={project.title}
+                  alt={t(project.title)}
                   usage="gallery"
                   fill
                   className="object-cover"
@@ -168,20 +172,18 @@ export default function ProjectModal({ project, isOpen, onClose }) {
             )}
           </div>
 
-          {/* About */}
           {project.summary && (
             <section>
-              <div className="eyebrow mb-2">About</div>
+              <div className="eyebrow mb-2">{t('modal.about')}</div>
               <p className="text-sm text-zinc-700 leading-relaxed">
-                {project.summary}
+                {t(project.summary)}
               </p>
             </section>
           )}
 
-          {/* What I built */}
           {project.features && (
             <section>
-              <div className="eyebrow mb-3">What I built</div>
+              <div className="eyebrow mb-3">{t('modal.whatIBuilt')}</div>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 {project.features.map((feature, idx) => (
                   <li
@@ -192,7 +194,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                       <Check size={10} className="text-indigo-600" strokeWidth={3} />
                     </span>
                     <span className="text-sm text-zinc-700 leading-relaxed">
-                      {feature}
+                      {t(feature)}
                     </span>
                   </li>
                 ))}
@@ -200,38 +202,39 @@ export default function ProjectModal({ project, isOpen, onClose }) {
             </section>
           )}
 
-          {/* Tech */}
           {project.technologies && (
             <section>
-              <div className="eyebrow mb-3">Tech Stack</div>
+              <div className="eyebrow mb-3">{t('modal.techStack')}</div>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                 {project.technologies.map((tech, idx) => (
                   <div
                     key={idx}
                     className="p-3 rounded-xl bg-zinc-50 border border-zinc-100"
                   >
-                    <div className="text-sm font-medium text-indigo-600">{tech.name}</div>
-                    <div className="text-xs text-zinc-500 mt-0.5">{tech.description}</div>
+                    <div className="text-sm font-medium text-indigo-600">
+                      {tech.name}
+                    </div>
+                    <div className="text-xs text-zinc-500 mt-0.5">
+                      {t(tech.description)}
+                    </div>
                   </div>
                 ))}
               </div>
             </section>
           )}
 
-          {/* Impact */}
           {project.impact && (
             <section className="p-4 rounded-xl bg-indigo-50/50 border border-indigo-100">
               <div className="flex items-center gap-2 mb-2">
                 <Sparkles size={14} className="text-indigo-600" />
-                <div className="eyebrow !text-indigo-700">Business impact</div>
+                <div className="eyebrow !text-indigo-700">{t('modal.impact')}</div>
               </div>
               <p className="text-sm text-zinc-700 leading-relaxed">
-                {project.impact}
+                {t(project.impact)}
               </p>
             </section>
           )}
 
-          {/* Links */}
           {(project.url || project.github) && (
             <div className="flex flex-wrap gap-3 pt-2">
               {project.url && (
@@ -242,7 +245,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                   className="btn-primary"
                 >
                   <ExternalLink size={15} />
-                  View Live
+                  {t('modal.viewLive')}
                 </a>
               )}
               {project.github && (
@@ -253,7 +256,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                   className="btn-secondary"
                 >
                   <Github size={15} />
-                  GitHub
+                  {t('modal.github')}
                 </a>
               )}
             </div>

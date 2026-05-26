@@ -9,9 +9,10 @@ import {
   Users,
 } from "lucide-react";
 
+// Skill item names stay in EN (React, Next.js, MySQL etc.) — only category titles translate
 export const skillCategories = [
   {
-    title: "Frontend",
+    title: { en: "Frontend", th: "Frontend" },
     icon: Code2,
     items: [
       "React.js",
@@ -26,7 +27,7 @@ export const skillCategories = [
     ],
   },
   {
-    title: "Backend / API",
+    title: { en: "Backend / API", th: "Backend / API" },
     icon: Server,
     items: [
       "PHP",
@@ -38,7 +39,7 @@ export const skillCategories = [
     ],
   },
   {
-    title: "Database",
+    title: { en: "Database", th: "ฐานข้อมูล" },
     icon: Database,
     items: [
       "MySQL",
@@ -51,7 +52,7 @@ export const skillCategories = [
     ],
   },
   {
-    title: "DevOps / Deployment",
+    title: { en: "DevOps / Deployment", th: "DevOps / Deployment" },
     icon: Cloud,
     items: [
       "Docker",
@@ -65,7 +66,7 @@ export const skillCategories = [
     ],
   },
   {
-    title: "Version Control & Tools",
+    title: { en: "Version Control & Tools", th: "Version Control และเครื่องมือ" },
     icon: GitBranch,
     items: [
       "Git",
@@ -78,7 +79,7 @@ export const skillCategories = [
     ],
   },
   {
-    title: "AI Coding Tools",
+    title: { en: "AI Coding Tools", th: "เครื่องมือ AI Coding" },
     icon: Sparkles,
     items: [
       "ChatGPT",
@@ -91,7 +92,7 @@ export const skillCategories = [
     ],
   },
   {
-    title: "Testing / Debugging",
+    title: { en: "Testing / Debugging", th: "Testing / Debugging" },
     icon: Bug,
     items: [
       "Manual Testing",
@@ -102,7 +103,7 @@ export const skillCategories = [
     ],
   },
   {
-    title: "Work Skills",
+    title: { en: "Work Skills", th: "ทักษะการทำงาน" },
     icon: Users,
     items: [
       "Requirement Analysis",

@@ -1,8 +1,12 @@
-import Link from 'next/link';
+'use client';
+
 import { Github, Mail, Facebook } from 'lucide-react';
 import { profile } from '../../data/profile';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="border-t border-zinc-200 bg-zinc-50">
       <div className="max-w-6xl mx-auto px-4 md:px-6 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -11,7 +15,7 @@ export default function Footer() {
             {profile.name}
           </div>
           <div className="text-sm text-zinc-500 mt-1">
-            {profile.title} · {profile.location}
+            {t(profile.title)} · {t(profile.location)}
           </div>
         </div>
 
@@ -50,8 +54,10 @@ export default function Footer() {
 
       <div className="border-t border-zinc-200">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-4 text-xs text-zinc-500 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
-          <div>© {new Date().getFullYear()} {profile.name}. All rights reserved.</div>
-          <div>Built with Next.js · Designed for clients & employers</div>
+          <div>
+            © {new Date().getFullYear()} {profile.name}. {t('footer.rights')}
+          </div>
+          <div>{t('footer.builtWith')}</div>
         </div>
       </div>
     </footer>

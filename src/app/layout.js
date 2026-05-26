@@ -1,20 +1,21 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 import { profile } from '../data/profile';
+import { LanguageProvider } from '../components/context/LanguageContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: `${profile.name} — ${profile.title}`,
-  description: profile.intro,
+  title: `${profile.name} — ${profile.title.en}`,
+  description: profile.intro.en,
   keywords: 'web developer, frontend, full-stack, react, next.js, vue, typescript, ERP, e-commerce, freelance',
   authors: [{ name: profile.name }],
   creator: profile.name,
   metadataBase: new URL('https://your-domain.com'),
   alternates: { canonical: '/' },
   openGraph: {
-    title: `${profile.name} — ${profile.title}`,
-    description: profile.intro,
+    title: `${profile.name} — ${profile.title.en}`,
+    description: profile.intro.en,
     siteName: `${profile.name} Portfolio`,
     images: [
       {
@@ -29,8 +30,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${profile.name} — ${profile.title}`,
-    description: profile.intro,
+    title: `${profile.name} — ${profile.title.en}`,
+    description: profile.intro.en,
     images: [profile.avatar],
   },
   robots: {
@@ -54,17 +55,19 @@ export default function RootLayout({ children }) {
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: profile.name,
-              jobTitle: profile.title,
-              description: profile.intro,
+              jobTitle: profile.title.en,
+              description: profile.intro.en,
               image: profile.avatar,
               email: `mailto:${profile.email}`,
-              address: { '@type': 'PostalAddress', addressCountry: profile.location },
+              address: { '@type': 'PostalAddress', addressCountry: profile.location.en },
               sameAs: Object.values(profile.social).filter(Boolean),
             }),
           }}
         />
       </head>
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <LanguageProvider>{children}</LanguageProvider>
+      </body>
     </html>
   );
 }

@@ -3,8 +3,10 @@
 import { ArrowUpRight, Briefcase } from 'lucide-react';
 import OptimizedImage from './OptimizedImage';
 import OptimizedVideo from './OptimizedVideo';
+import { useLanguage } from '../context/LanguageContext';
 
 export default function ProjectCard({ project, onClick, variant = 'default' }) {
+  const { t } = useLanguage();
   const featured = variant === 'featured';
 
   return (
@@ -14,7 +16,6 @@ export default function ProjectCard({ project, onClick, variant = 'default' }) {
         featured ? 'lg:flex lg:gap-6' : ''
       }`}
     >
-      {/* Media */}
       <div
         className={`relative overflow-hidden ${
           featured
@@ -25,7 +26,7 @@ export default function ProjectCard({ project, onClick, variant = 'default' }) {
         {project.type === 'image' ? (
           <OptimizedImage
             src={project.image}
-            alt={project.title}
+            alt={t(project.title)}
             usage="project"
             index={0}
             fill
@@ -41,26 +42,29 @@ export default function ProjectCard({ project, onClick, variant = 'default' }) {
         )}
       </div>
 
-      {/* Content */}
-      <div className={`p-6 ${featured ? 'lg:flex-1 lg:flex lg:flex-col lg:justify-center' : ''}`}>
+      <div
+        className={`p-6 ${
+          featured ? 'lg:flex-1 lg:flex lg:flex-col lg:justify-center' : ''
+        }`}
+      >
         <div className="flex items-center gap-2 text-xs text-zinc-500 mb-3">
           <Briefcase size={12} />
-          <span>{project.role}</span>
+          <span>{t(project.role)}</span>
           {project.period && (
             <>
               <span className="text-zinc-300">·</span>
-              <span>{project.period}</span>
+              <span>{t(project.period)}</span>
             </>
           )}
         </div>
 
         <h3 className="text-lg md:text-xl font-semibold text-zinc-900 tracking-tight leading-snug group-hover:text-indigo-600 transition-colors">
-          {project.title}
+          {t(project.title)}
         </h3>
 
         {project.summary && (
           <p className="mt-2 text-sm text-zinc-600 leading-relaxed">
-            {project.summary}
+            {t(project.summary)}
           </p>
         )}
 
@@ -73,7 +77,7 @@ export default function ProjectCard({ project, onClick, variant = 'default' }) {
         </div>
 
         <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 group-hover:text-indigo-700">
-          View case study
+          {t('projects.viewCase')}
           <ArrowUpRight
             size={14}
             className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
