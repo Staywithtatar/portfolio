@@ -1,162 +1,130 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import MainLayout from '../../components/layout/MainLayout';
-import Link from 'next/link';
 import OptimizedImage from '../../components/ui/OptimizedImage';
 import OptimizedVideo from '../../components/ui/OptimizedVideo';
 import ProjectModal from '../../components/ui/ProjectModal';
 import { useLanguage } from '../../components/context/LanguageContext';
 import { projectData } from '../../utils/projectData';
+import { Sparkles, FolderGit2 } from 'lucide-react';
 
 export default function Projects() {
   const { t } = useLanguage();
-  const containerRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 200);
-    return () => clearTimeout(timer);
-  }, []);
-  
-  const projects = projectData;
-  
-  const handleProjectClick = (e, project) => {
-    e.preventDefault();
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  };
-  
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedProject(null);
-  };
 
   useEffect(() => {
-    // Custom scrollbar styles
-    const style = document.createElement('style');
-    style.textContent = `
-      .project-container::-webkit-scrollbar {
-        width: 8px;
-        background: transparent;
-      }
-      
-      .project-container::-webkit-scrollbar-thumb {
-        background-color: rgba(255, 255, 255, 0.2);
-        border-radius: 4px;
-      }
-      
-      .project-container::-webkit-scrollbar-thumb:hover {
-        background-color: rgba(255, 255, 255, 0.3);
-      }
-      
-      .project-container {
-        scrollbar-width: thin;
-        scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
-      }
-    `;
-    document.head.appendChild(style);
-    
-    return () => {
-      document.head.removeChild(style);
-    };
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <MainLayout>
-      <div className="h-[calc(100vh-2rem)] flex flex-col px-4 py-4 overflow-hidden">
-        <div 
-          className={`glass rounded-2xl p-6 mb-4 border border-gray-800/40 flex-shrink-0 ${isVisible ? 'animate-fade-in-down' : 'opacity-0'}`}
-          suppressHydrationWarning={true}
+      <div className="flex flex-col gap-5">
+        <div
+          className={`surface rounded-3xl p-6 md:p-8 ${
+            isVisible ? 'animate-fade-in-down' : 'opacity-0'
+          }`}
+          suppressHydrationWarning
         >
-          <div className="flex justify-between items-center">
+          <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
-              <h1 className="text-white text-3xl font-bold mb-2 gradient-text">
-                {t('projects')} <span className="text-blue-400 animate-pulse">🚀</span>
+              <div className="heading-eyebrow mb-2">Portfolio</div>
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-100 tracking-tight mb-2 leading-tight">
+                {t('projects')}
               </h1>
-              <p className="text-gray-300">
-                Explore my latest projects and creative works
+              <p className="text-sm text-slate-400 max-w-md leading-relaxed">
+                A collection of selected works — from production systems to experimental builds.
               </p>
             </div>
-            
-            <div className="text-right">
-              <div className="text-2xl font-bold text-blue-400">{projects.length}</div>
-              <div className="text-sm text-gray-400">Projects</div>
+            <div className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-indigo-400/10 border border-indigo-400/15">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-indigo-400/15">
+                <FolderGit2 size={18} className="text-indigo-300" />
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-slate-100 leading-none tabular-nums">
+                  {projectData.length}
+                </div>
+                <div className="text-[10px] text-slate-400 uppercase tracking-wider mt-1 font-medium">
+                  Projects
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div 
-          ref={containerRef}
-          className="project-container overflow-y-auto flex-grow pr-2 pb-6"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pb-6">
-            {projects.map((project, index) => (
-              <div key={project.id} className={`h-full ${isVisible ? `animate-fade-in-up stagger-${index + 1}` : 'opacity-0'}`}>
-                <div 
-                  onClick={(e) => handleProjectClick(e, project)}
-                  className="glass overflow-hidden hover:bg-gray-800/50 transition-all duration-300 cursor-pointer h-full border border-white/10 shadow-lg hover-lift"
-                  style={{ borderRadius: project.borderRadius }}
-                >
-                  {project.image && project.type === "image" && (
-                    <div className="relative h-52 overflow-hidden" 
-                      style={{ 
-                        borderTopLeftRadius: project.borderRadius.split(' ')[0], 
-                        borderTopRightRadius: project.borderRadius.split(' ')[1] 
-                      }}>
-                      <OptimizedImage
-                        src={project.image}
-                        alt={t(project.titleKey)}
-                        usage="project"
-                        index={index}
-                        fill
-                        className="object-cover transition-transform duration-500 hover:scale-110"
-                      />
-                      {/* Image overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-                      {project.isNew && (
-                        <div className="absolute top-2 right-2 bg-gradient-to-r from-green-500 to-green-600 text-white text-xs px-2 py-0.5 rounded-full animate-pulse">
-                          NEW
-                        </div>
-                      )}
-                    </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+          {projectData.map((project, index) => (
+            <div
+              key={project.id}
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedProject(project);
+                setIsModalOpen(true);
+              }}
+              className={`group surface rounded-2xl overflow-hidden cursor-pointer hover:border-white/[0.16] transition-all hover-lift ${
+                isVisible ? `animate-fade-in-up stagger-${(index % 6) + 1}` : 'opacity-0'
+              }`}
+            >
+              {project.image && project.type === 'image' && (
+                <div className="relative h-52 overflow-hidden">
+                  <OptimizedImage
+                    src={project.image}
+                    alt={t(project.titleKey)}
+                    usage="project"
+                    index={index}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
+                  {project.isNew && (
+                    <span className="absolute top-3 right-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-semibold bg-emerald-400/95 text-emerald-950 backdrop-blur-sm">
+                      <Sparkles size={10} />
+                      NEW
+                    </span>
                   )}
-                  {project.image && project.type === "video" && (
-                    <div className="w-full h-52 relative">
-                      <OptimizedVideo 
-                        src={project.image} 
-                        className="w-full h-full object-cover"
-                        controls
-                        muted
-                        preload="metadata"
-                      />
-                    </div>
-                  )}
-                  <div className="p-4">
-                    <h2 className="text-white text-lg font-semibold mb-2">{t(project.titleKey)}</h2>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                      {project.tags.map((tag, i) => (
-                        <div key={i} className="bg-white/10 text-white text-xs px-2 py-1 rounded-full border border-white/5 hover:bg-white/20 transition-colors duration-200">
-                          {tag}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                </div>
+              )}
+              {project.image && project.type === 'video' && (
+                <div className="relative h-52">
+                  <OptimizedVideo
+                    src={project.image}
+                    className="w-full h-full object-cover"
+                    muted
+                    preload="metadata"
+                  />
+                </div>
+              )}
+              <div className="p-5">
+                <h2 className="text-base font-semibold text-slate-100 mb-3 tracking-tight line-clamp-2 group-hover:text-white transition-colors">
+                  {t(project.titleKey)}
+                </h2>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex px-2 py-1 rounded-md text-[10px] font-medium bg-white/[0.04] text-slate-300 border border-white/[0.06]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-        
-        {/* Project Modal */}
-        <ProjectModal
-          project={selectedProject}
-          isOpen={isModalOpen}
-          onClose={closeModal}
-        />
       </div>
+
+      <ProjectModal
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedProject(null);
+        }}
+      />
     </MainLayout>
   );
 }

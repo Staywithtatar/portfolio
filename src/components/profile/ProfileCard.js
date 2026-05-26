@@ -8,57 +8,52 @@ import { useEffect, useState } from 'react';
 export default function ProfileCard() {
   const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
-  
+
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 200);
+    const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
-  
+
   return (
-    <div 
-      className={`glass p-6 flex flex-col border border-white/10 h-full relative overflow-hidden hover-lift ${isVisible ? 'animate-scale-in' : 'opacity-0 scale-95'}`}
-      style={{ 
-        borderRadius: '60px 20px 40px 20px',
-        boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)'
-      }}
-      suppressHydrationWarning={true}
+    <div
+      className={`surface rounded-3xl p-6 h-full flex flex-col hover-lift ${
+        isVisible ? 'animate-scale-in' : 'opacity-0'
+      }`}
+      suppressHydrationWarning
     >
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-blue-500/5 to-indigo-500/5 animate-pulse"></div>
-      
-      <div className="mb-3 relative z-10">
-        <div 
-          className="overflow-hidden mb-3 max-w-[350px] mx-auto relative hover-glow"
-          style={{ borderRadius: '50px 15px 30px 15px' }}
-        >
-          <Image
-            src="/image/profile2.jpg"
-            alt="Profile"
-            width={350}  
-            height={350}
-            className="w-full h-[230px] object-cover object-center transition-all duration-500 hover:scale-105"
-            priority
-          />
-          {/* Image overlay effect */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="relative mb-5 overflow-hidden rounded-2xl">
+        <Image
+          src="/image/profile2.jpg"
+          alt="Profile"
+          width={400}
+          height={300}
+          className="w-full h-[240px] object-cover transition-transform duration-700 hover:scale-105"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent pointer-events-none" />
+
+        <div className="absolute bottom-3 left-3 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-white/10">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+          </span>
+          <span className="text-[11px] font-medium text-white tracking-wide">Available for work</span>
         </div>
-        
-        <h2 className="text-xl font-bold text-white mb-1 gradient-text">
-          {t('name')} <span className="text-yellow-400 animate-pulse">✋</span>
-        </h2>
-        
-        <p className="text-l text-gray-300 mb-4">
-          {t('intro')} <span className="text-white animate-bounce">🚀</span>
-        </p>
       </div>
-      
-      <div className="mt-auto relative z-10">
+
+      <div className="heading-eyebrow mb-2">Full-Stack Developer</div>
+
+      <h2 className="text-2xl font-bold text-slate-100 mb-3 tracking-tight leading-tight">
+        {t('name')}
+      </h2>
+
+      <p className="text-sm text-slate-400 leading-relaxed mb-6">
+        {t('intro')}
+      </p>
+
+      <div className="mt-auto">
         <SocialButtons />
       </div>
-      
-      {/* Floating particles effect */}
-      <div className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full animate-ping opacity-75"></div>
-      <div className="absolute bottom-8 left-6 w-1 h-1 bg-purple-400 rounded-full animate-ping opacity-75" style={{ animationDelay: '1s' }}></div>
     </div>
   );
 }

@@ -25,9 +25,6 @@ const nextConfig = {
   // Compression and optimization
   compress: true,
   
-  // Enable SWC minification
-  swcMinify: true,
-  
   // Headers for better caching
   async headers() {
     return [

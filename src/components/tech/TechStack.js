@@ -2,64 +2,72 @@
 
 import { useLanguage } from '../context/LanguageContext';
 import { useEffect, useState } from 'react';
+import {
+  SiReact, SiNextdotjs, SiVuedotjs, SiAngular, SiTypescript,
+  SiJavascript, SiNodedotjs, SiPhp, SiMysql, SiMongodb,
+  SiTailwindcss, SiGit,
+} from 'react-icons/si';
 
 export default function TechStack() {
   const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
-  
+
   useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 600);
+    const timer = setTimeout(() => setIsVisible(true), 200);
     return () => clearTimeout(timer);
   }, []);
 
   const techItems = [
-    { name: "React", icon: "⚛️", color: "from-blue-500 to-cyan-500" },
-    { name: "Next.js", icon: "⚡", color: "from-black to-gray-800" },
-    { name: "Vue.js", icon: "🟢", color: "from-green-500 to-emerald-500" },
-    { name: "Angular", icon: "🔴", color: "from-red-500 to-pink-500" },
-    { name: "TypeScript", icon: "🔵", color: "from-blue-600 to-indigo-600" },
-    { name: "JavaScript", icon: "🟡", color: "from-yellow-400 to-orange-400" },
-    { name: "Node.js", icon: "🟢", color: "from-green-600 to-green-700" },
-    { name: "PHP", icon: "🟣", color: "from-purple-500 to-indigo-500" },
-    { name: "MySQL", icon: "🔵", color: "from-blue-500 to-blue-600" },
-    { name: "MongoDB", icon: "🟢", color: "from-green-500 to-green-600" },
-    { name: "Tailwind CSS", icon: "💨", color: "from-cyan-400 to-blue-500" },
-    { name: "Git", icon: "📦", color: "from-orange-500 to-red-500" }
+    { name: 'React', Icon: SiReact, color: '#61DAFB' },
+    { name: 'Next.js', Icon: SiNextdotjs, color: '#FFFFFF' },
+    { name: 'Vue.js', Icon: SiVuedotjs, color: '#42B883' },
+    { name: 'Angular', Icon: SiAngular, color: '#DD0031' },
+    { name: 'TypeScript', Icon: SiTypescript, color: '#3178C6' },
+    { name: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
+    { name: 'Node.js', Icon: SiNodedotjs, color: '#5FA04E' },
+    { name: 'PHP', Icon: SiPhp, color: '#8993BE' },
+    { name: 'MySQL', Icon: SiMysql, color: '#4479A1' },
+    { name: 'MongoDB', Icon: SiMongodb, color: '#47A248' },
+    { name: 'Tailwind', Icon: SiTailwindcss, color: '#06B6D4' },
+    { name: 'Git', Icon: SiGit, color: '#F05032' },
   ];
 
   return (
-    <div 
-      className={`glass p-6 h-full flex flex-col border border-white/10 hover-lift ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
-      style={{ 
-        borderRadius: '30px 60px 30px 60px',
-        boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)'
-      }}
-      suppressHydrationWarning={true}
+    <div
+      className={`surface rounded-3xl p-6 h-full flex flex-col hover-lift ${
+        isVisible ? 'animate-fade-in-up' : 'opacity-0'
+      }`}
+      suppressHydrationWarning
     >
-      {/* Floating tech particles */}
-      <div className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-      <div className="absolute bottom-4 left-4 w-1 h-1 bg-green-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-      
-      <h2 className="text-white text-xl font-semibold mb-4 gradient-text">
-        {t('techStack')} <span className="text-blue-400 animate-pulse">⚡</span>
-      </h2>
-      
-      <div className="flex-grow overflow-y-auto pr-2 custom-scrollbar">
-        <div className="grid grid-cols-2 gap-3">
-          {techItems.map((item, index) => (
-            <div 
-              key={item.name}
-              className={`glass p-3 rounded-lg border border-white/10 hover:scale-105 hover:shadow-xl transition-all duration-300 ${isVisible ? `animate-fade-in-up stagger-${index + 1}` : 'opacity-0'}`}
-              style={{ borderRadius: '15px 30px 15px 30px' }}
-            >
-              <div className="flex items-center space-x-2">
-                <span className="text-lg">{item.icon}</span>
-                <span className="text-white text-sm font-medium">{item.name}</span>
-              </div>
-              <div className={`mt-2 h-1 bg-gradient-to-r ${item.color} rounded-full`}></div>
-            </div>
-          ))}
+      <div className="flex items-end justify-between mb-5">
+        <div>
+          <div className="heading-eyebrow mb-1.5">Stack</div>
+          <h2 className="text-lg font-semibold text-slate-100 tracking-tight">{t('techStack')}</h2>
         </div>
+        <span className="text-xs text-slate-500 font-mono tabular-nums">{techItems.length} tools</span>
+      </div>
+
+      <div className="grid grid-cols-3 gap-2">
+        {techItems.map((item, index) => {
+          const Icon = item.Icon;
+          return (
+            <div
+              key={item.name}
+              className={`group flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/[0.12] transition-all cursor-default ${
+                isVisible ? `animate-fade-in-up stagger-${(index % 6) + 1}` : 'opacity-0'
+              }`}
+            >
+              <Icon
+                size={22}
+                style={{ color: item.color }}
+                className="transition-transform group-hover:scale-110"
+              />
+              <span className="text-[11px] font-medium text-slate-400 group-hover:text-slate-200 transition-colors">
+                {item.name}
+              </span>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

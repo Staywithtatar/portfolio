@@ -1,92 +1,65 @@
 'use client';
 
+import { Mail, Github, Facebook, CheckCircle2, ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function SocialButtons() {
   const { t } = useLanguage();
-  const [isVisible, setIsVisible] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  
-  useEffect(() => {
-    const timer = setTimeout(() => setIsVisible(true), 800);
-    return () => clearTimeout(timer);
-  }, []);
 
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText('yodsaphark.champapaeng@gmail.com');
       setShowToast(true);
-      setTimeout(() => setShowToast(false), 3000);
+      setTimeout(() => setShowToast(false), 2500);
     } catch (err) {
       console.error('Failed to copy email:', err);
     }
   };
 
+  const buttons = [
+    { icon: Mail, label: t('copyEmail'), onClick: copyEmail },
+    { icon: Github, label: 'GitHub', href: 'https://github.com/Staywithtatar' },
+    { icon: Facebook, label: 'Facebook', href: 'https://web.facebook.com/nongta.nongree' },
+  ];
+
   return (
-    <div 
-      className={`glass p-6 h-full flex flex-col border border-white/10 ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
-      style={{ 
-        borderRadius: '30px 60px 30px 60px',
-        boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)'
-      }}
-      suppressHydrationWarning={true}
-    >
-      {/* Social media particles */}
-      <div className="absolute top-4 right-4 w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-      <div className="absolute bottom-4 left-4 w-1 h-1 bg-blue-400 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-      
-      <h3 className="text-white text-lg font-semibold mb-4 gradient-text">
-        Connect With Me <span className="text-green-400 animate-pulse">📱</span>
-      </h3>
-      
-      <div className="flex-grow flex flex-col space-y-3">
-        <button
-          onClick={copyEmail}
-          className="glass flex items-center space-x-3 p-3 rounded-lg border border-white/10 hover:scale-105 active:scale-95 hover:shadow-lg transition-all duration-300"
-          style={{ borderRadius: '15px 30px 15px 30px' }}
-        >
-          <span className="text-xl animate-pulse">📧</span>
-          <span className="text-white font-medium">{t('copyEmail')}</span>
-        </button>
-        
-        <a
-          href="https://github.com/Staywithtatar"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="glass flex items-center space-x-3 p-3 rounded-lg border border-white/10 hover:scale-105 active:scale-95 hover:shadow-lg transition-all duration-300"
-          style={{ borderRadius: '30px 15px 30px 15px' }}
-        >
-          <span className="text-xl animate-pulse">🐙</span>
-          <span className="text-white font-medium">GitHub</span>
-        </a>
-        
-        <a
-          href="https://web.facebook.com/nongta.nongree"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="glass flex items-center space-x-3 p-3 rounded-lg border border-white/10 hover:scale-105 active:scale-95 hover:shadow-lg transition-all duration-300"
-          style={{ borderRadius: '15px 30px 15px 30px' }}
-        >
-          <span className="text-xl animate-pulse">📘</span>
-          <span className="text-white font-medium">Facebook</span>
-        </a>
-      </div>
-      
-      {/* Toast notification */}
+    <div className="space-y-2">
+      {buttons.map((btn) => {
+        const Icon = btn.icon;
+        const Wrapper = btn.href ? 'a' : 'button';
+        const props = btn.href
+          ? { href: btn.href, target: '_blank', rel: 'noopener noreferrer' }
+          : { onClick: btn.onClick, type: 'button' };
+
+        return (
+          <Wrapper
+            key={btn.label}
+            {...props}
+            className="group w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.06] hover:border-white/[0.14] transition-all"
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.06] group-hover:border-indigo-400/30 group-hover:bg-indigo-400/10 transition-colors">
+                <Icon size={14} className="text-slate-300 group-hover:text-indigo-300 transition-colors" />
+              </div>
+              <span className="text-sm font-medium text-slate-200">{btn.label}</span>
+            </div>
+            <ArrowUpRight
+              size={14}
+              className="text-slate-500 group-hover:text-indigo-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all"
+            />
+          </Wrapper>
+        );
+      })}
+
       {showToast && (
-        <div 
-          className="glass fixed bottom-4 right-4 p-4 rounded-lg border border-green-500/20 animate-fade-in-up"
-          style={{ 
-            backdropFilter: 'blur(20px)',
-            boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)'
-          }}
-          suppressHydrationWarning={true}
+        <div
+          className="fixed bottom-6 right-6 surface rounded-xl px-4 py-3 flex items-center gap-2 animate-fade-in-up z-50"
+          suppressHydrationWarning
         >
-          <div className="flex items-center space-x-2">
-            <span className="text-green-400">✅</span>
-            <span className="text-white">Email copied to clipboard!</span>
-          </div>
+          <CheckCircle2 size={16} className="text-emerald-400" />
+          <span className="text-sm text-slate-100">Email copied to clipboard</span>
         </div>
       )}
     </div>
