@@ -10,7 +10,7 @@ export const projectData = [
     },
     image: "/image/project/Paljai/Screenshot 2026-01-09 153104.png",
     type: "image",
-    tags: ["Next.js", "Supabase", "TailwindCSS"],
+    tags: ["React", "Express"],
     role: { en: "Frontend Developer", th: "Frontend Developer" },
     period: { en: "2025 — Present", th: "2025 — ปัจจุบัน" },
     summary: {
@@ -26,11 +26,8 @@ export const projectData = [
       { src: "/image/project/Paljai/Screenshot 2026-01-09 153156.png", type: "image" },
     ],
     technologies: [
-      { name: "Next.js", description: { en: "React framework, App Router", th: "React framework, App Router" } },
-      { name: "React", description: { en: "UI library", th: "UI library" } },
-      { name: "Supabase", description: { en: "Auth, Storage, Postgres API", th: "Auth, Storage, Postgres API" } },
-      { name: "TailwindCSS", description: { en: "Styling system", th: "Styling system" } },
-      { name: "Vercel", description: { en: "Deployment", th: "Deployment" } },
+      { name: "React", description: { en: "Frontend UI", th: "Frontend UI" } },
+      { name: "Express", description: { en: "Backend API", th: "Backend API" } },
     ],
     features: [
       { en: "Frontend development for a pet & pet-product marketplace", th: "พัฒนา frontend สำหรับ marketplace สัตว์เลี้ยงและสินค้าเกี่ยวกับสัตว์เลี้ยง" },
@@ -53,7 +50,7 @@ export const projectData = [
     },
     image: "/image/project/Apower/Screenshot 2026-03-19 151125.png",
     type: "image",
-    tags: ["Vue 3", "TypeScript", "PHP", "MySQL"],
+    tags: ["React", "PHP"],
     role: { en: "Full-stack Developer", th: "Full-stack Developer" },
     period: { en: "2024", th: "2024" },
     summary: {
@@ -77,12 +74,8 @@ export const projectData = [
       { src: "/image/project/Apower/Screenshot 2026-02-03 000732.png", type: "image" },
     ],
     technologies: [
-      { name: "Vue 3", description: { en: "Composition API", th: "Composition API" } },
-      { name: "TypeScript", description: { en: "Type safety", th: "Type safety" } },
-      { name: "PHP", description: { en: "Backend / REST API", th: "Backend / REST API" } },
-      { name: "MySQL", description: { en: "Relational database", th: "ฐานข้อมูลเชิงสัมพันธ์" } },
-      { name: "Docker", description: { en: "Containerization", th: "Containerization" } },
-      { name: "VPS", description: { en: "Self-hosted deployment", th: "Deploy บน VPS ของลูกค้า" } },
+      { name: "React", description: { en: "Frontend UI", th: "Frontend UI" } },
+      { name: "PHP", description: { en: "Backend API", th: "Backend API" } },
     ],
     features: [
       { en: "Material Order & Purchase Request workflow", th: "Workflow ของ Material Order และ Purchase Request" },
@@ -106,7 +99,7 @@ export const projectData = [
     },
     image: "/image/project/Nongnuch/Screenshot 2025-06-04 100000.png",
     type: "image",
-    tags: ["React", "Vue 3", "PHP", "MySQL", "VPS"],
+    tags: ["Vue 3", "Express"],
     role: {
       en: "Freelance Developer · Full-stack",
       th: "Freelance Developer · Full-stack",
@@ -130,12 +123,8 @@ export const projectData = [
       { src: "/image/project/Nongnuch/project9_17.png", type: "image" },
     ],
     technologies: [
-      { name: "React / Vue 3", description: { en: "Frontend (per project)", th: "Frontend (ตามโปรเจกต์)" } },
-      { name: "PHP", description: { en: "Backend API", th: "Backend API" } },
-      { name: "MySQL", description: { en: "Database", th: "Database" } },
-      { name: "Supabase", description: { en: "BaaS for select projects", th: "BaaS สำหรับบางโปรเจกต์" } },
-      { name: "Docker", description: { en: "Containerization", th: "Containerization" } },
-      { name: "VPS / Ubuntu", description: { en: "Deployment", th: "Deployment" } },
+      { name: "Vue 3", description: { en: "Frontend UI", th: "Frontend UI" } },
+      { name: "Express", description: { en: "Backend API", th: "Backend API" } },
     ],
     features: [
       { en: "Requirement gathering and system flow planning", th: "เก็บ requirement และวาง flow ระบบ" },
